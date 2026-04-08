@@ -57,3 +57,5 @@ C:\Users\User\Desktop\social-media-system\social-media-system\SocialMediaSystem\
 C:\Users\User\Desktop\social-media-system\social-media-system\SocialMediaSystem\SocialMediaSystem\obj\Debug\net8.0-windows\SocialMediaSystem.pdb
 C:\Users\User\Desktop\social-media-system\social-media-system\SocialMediaSystem\SocialMediaSystem\obj\Debug\net8.0-windows\SocialMediaSystem.genruntimeconfig.cache
 C:\Users\User\Desktop\social-media-system\social-media-system\SocialMediaSystem\SocialMediaSystem\obj\Debug\net8.0-windows\ref\SocialMediaSystem.dll
+C:\Users\User\Desktop\SocialMediaSystem\SocialMediaSystem\obj\Debug\net8.0-windows\SocialMediaSystem.sourcelink.json
+C:\Users\User\Desktop\SocialMediaSystem\SocialMediaSystem\obj\Debug\net8.0-windows\SocialMediaSystem.Properties.Resources.resources

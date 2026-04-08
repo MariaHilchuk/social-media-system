@@ -30,10 +30,10 @@ namespace SocialMediaSystem
         {
         }
 
-        public virtual string FileName => "Entity.txt";
+        public virtual string FileName => "Posts.txt";
     }
 
-    public class User : Entity
+    public class User : Entity, IEntity
     {
         public string? Username { get; set; }
         public string? Email { get; set; }
@@ -65,6 +65,12 @@ namespace SocialMediaSystem
         public override string Format()
         {
             return $"[{id}][{Username}][{Email}]";
+        }        
+        public bool Search(string searchString)
+        {
+            return (Username?.Contains(searchString, StringComparison.OrdinalIgnoreCase) ?? false) ||
+            (Password?.Contains(searchString, StringComparison.OrdinalIgnoreCase) ?? false) ||
+            (Email?.Contains(searchString, StringComparison.OrdinalIgnoreCase) ?? false);
         }
 
     }
@@ -95,6 +101,7 @@ namespace SocialMediaSystem
         public override void Parse(string data)
         {
         }
+
     }
 
     public class Gamer : User
@@ -156,8 +163,10 @@ namespace SocialMediaSystem
         }
     }
 
-    public class Post : Entity
+    public class Post : Entity, IEntity
     {
+        public override string FileName => "Posts.txt";
+
         public User? Author { get; set; }
         public string? Description { get; set; }
         public List<User>? Views { get; set; }
@@ -183,6 +192,7 @@ namespace SocialMediaSystem
             Likes = likes;
         }
 
+
         public new bool IsValid()
         {
             if (!base.IsValid()) return false;
@@ -199,8 +209,47 @@ namespace SocialMediaSystem
         {
             return $"[{id}][{Author?.id}][{Description}][{PublishedDate?.ToUniversalTime()}]";
         }
+        public bool Search(string searchString)
+        {
+            return (Author?.Username?.Contains(searchString, StringComparison.OrdinalIgnoreCase) ?? false) ||
+            (Description?.Contains(searchString, StringComparison.OrdinalIgnoreCase) ?? false);
+        }
+    }
 
-        public override string FileName => "Posts.txt";
+public static class DataManager
+    {
+        public static IEnumerable<IEntity> Entities { get; private set; } = new List<IEntity>();
+
+        public static void Add(IEntity entity)
+        {
+            Entities = Entities.Append(entity);
+        }
+
+        public static IEnumerable<IEntity> Search2(string searchString)
+        {
+            var entities = new List<IEntity>();
+            foreach (var entity in Entities)
+            {
+                if (entity.Search(searchString))
+                {
+                    entities.Add(entity);
+                }
+            }
+            return entities;
+        }
+
+
+        public static IEnumerable<IEntity> Search(string searchString)
+        {
+            foreach (var entity in Entities)
+            {
+                if (entity.Search(searchString))
+                {
+                    yield return entity;
+                }
+            }
+
+        }
     }
     public static class FileManager
     {
@@ -220,14 +269,15 @@ namespace SocialMediaSystem
             }
         }
     }
-    internal static class Program
-    {
-        [STAThread]
-        static void Main()
-        {
-            ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
 
+        internal static class Program
+        {
+            [STAThread]
+            static void Main()
+            {
+                ApplicationConfiguration.Initialize();
+                Application.Run(new MainForm());
+
+            }
         }
-    }
-}
+ }   

@@ -8,6 +8,7 @@ namespace SocialMediaSystem
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             postsListView = new ListView();
             Id = new ColumnHeader();
             Author = new ColumnHeader();
@@ -24,16 +25,19 @@ namespace SocialMediaSystem
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
+            PostSearch = new TextBox();
+            SearchButton = new Button();
             SuspendLayout();
             // 
             // postsListView
             // 
+            postsListView.BackColor = Color.Black;
             postsListView.Columns.AddRange(new ColumnHeader[] { Id, Author, Likes, Description, Views, PublishedDate });
-            postsListView.ForeColor = SystemColors.WindowText;
+            postsListView.ForeColor = SystemColors.MenuBar;
             postsListView.FullRowSelect = true;
-            postsListView.Location = new Point(31, 74);
+            postsListView.Location = new Point(23, 132);
             postsListView.Name = "postsListView";
-            postsListView.Size = new Size(891, 438);
+            postsListView.Size = new Size(925, 455);
             postsListView.TabIndex = 0;
             postsListView.UseCompatibleStateImageBehavior = false;
             postsListView.View = View.Details;
@@ -42,7 +46,7 @@ namespace SocialMediaSystem
             // Id
             // 
             Id.Text = "#";
-            Id.Width = 150;
+            Id.Width = 120;
             // 
             // Author
             // 
@@ -52,17 +56,17 @@ namespace SocialMediaSystem
             // Likes
             // 
             Likes.Text = "Likes";
-            Likes.Width = 150;
+            Likes.Width = 120;
             // 
             // Description
             // 
             Description.Text = "Description";
-            Description.Width = 150;
+            Description.Width = 250;
             // 
             // Views
             // 
             Views.Text = "Views";
-            Views.Width = 150;
+            Views.Width = 120;
             // 
             // PublishedDate
             // 
@@ -71,6 +75,8 @@ namespace SocialMediaSystem
             // 
             // dateTimePicker1
             // 
+            dateTimePicker1.CalendarMonthBackground = SystemColors.InactiveCaptionText;
+            dateTimePicker1.CalendarTrailingForeColor = SystemColors.Control;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy hh:mm tt";
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.Location = new Point(967, 369);
@@ -85,6 +91,8 @@ namespace SocialMediaSystem
             // 
             // DescriptionTextBox
             // 
+            DescriptionTextBox.BackColor = SystemColors.InactiveCaptionText;
+            DescriptionTextBox.ForeColor = SystemColors.Window;
             DescriptionTextBox.Location = new Point(967, 193);
             DescriptionTextBox.Name = "DescriptionTextBox";
             DescriptionTextBox.Size = new Size(250, 27);
@@ -93,6 +101,8 @@ namespace SocialMediaSystem
             // 
             // authorTextBox
             // 
+            authorTextBox.BackColor = SystemColors.InactiveCaptionText;
+            authorTextBox.ForeColor = SystemColors.Window;
             authorTextBox.Location = new Point(967, 286);
             authorTextBox.Name = "authorTextBox";
             authorTextBox.Size = new Size(250, 27);
@@ -100,10 +110,11 @@ namespace SocialMediaSystem
             // 
             // buttonAdd
             // 
-            buttonAdd.BackColor = SystemColors.ActiveCaption;
-            buttonAdd.Location = new Point(1030, 422);
+            buttonAdd.BackColor = Color.DarkOrange;
+            buttonAdd.ForeColor = SystemColors.ActiveCaptionText;
+            buttonAdd.Location = new Point(1030, 421);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(112, 41);
+            buttonAdd.Size = new Size(112, 42);
             buttonAdd.TabIndex = 4;
             buttonAdd.Text = "Add";
             buttonAdd.UseVisualStyleBackColor = false;
@@ -119,15 +130,18 @@ namespace SocialMediaSystem
             // label1
             // 
             label1.AutoSize = true;
+            label1.ForeColor = SystemColors.ButtonHighlight;
             label1.Location = new Point(967, 156);
             label1.Name = "label1";
             label1.Size = new Size(85, 20);
             label1.TabIndex = 5;
             label1.Text = "Description";
+            label1.Click += label1_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
+            label2.ForeColor = SystemColors.ButtonHighlight;
             label2.Location = new Point(967, 253);
             label2.Name = "label2";
             label2.Size = new Size(54, 20);
@@ -137,15 +151,41 @@ namespace SocialMediaSystem
             // label3
             // 
             label3.AutoSize = true;
+            label3.ForeColor = SystemColors.ButtonHighlight;
             label3.Location = new Point(967, 335);
             label3.Name = "label3";
             label3.Size = new Size(111, 20);
             label3.TabIndex = 7;
             label3.Text = "Published  date";
             // 
+            // PostSearch
+            // 
+            PostSearch.BackColor = SystemColors.InactiveCaptionText;
+            PostSearch.ForeColor = SystemColors.Window;
+            PostSearch.Location = new Point(23, 83);
+            PostSearch.Name = "PostSearch";
+            PostSearch.Size = new Size(303, 27);
+            PostSearch.TabIndex = 8;
+            PostSearch.TextChanged += textBox1_TextChanged;
+            // 
+            // SearchButton
+            // 
+            SearchButton.FlatStyle = FlatStyle.Flat;
+            SearchButton.ForeColor = Color.FromArgb(255, 128, 0);
+            SearchButton.Image = (Image)resources.GetObject("SearchButton.Image");
+            SearchButton.Location = new Point(323, 83);
+            SearchButton.Name = "SearchButton";
+            SearchButton.Size = new Size(48, 27);
+            SearchButton.TabIndex = 9;
+            SearchButton.UseVisualStyleBackColor = true;
+            SearchButton.Click += button1_Click;
+            // 
             // MainForm
             // 
+            BackColor = Color.Silver;
             ClientSize = new Size(1295, 615);
+            Controls.Add(SearchButton);
+            Controls.Add(PostSearch);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -154,7 +194,9 @@ namespace SocialMediaSystem
             Controls.Add(DescriptionTextBox);
             Controls.Add(dateTimePicker1);
             Controls.Add(postsListView);
+            ForeColor = SystemColors.ActiveCaptionText;
             Name = "MainForm";
+            RightToLeft = RightToLeft.No;
             Text = "Social Media";
             ResumeLayout(false);
             PerformLayout();
@@ -197,6 +239,7 @@ namespace SocialMediaSystem
                 );
 
                 FileManager.Add(post);
+                DataManager.Add(post);
 
                 var item = new ListViewItem(postsListView.Items.Count + 1 + "");
                 item.SubItems.Add(authorName);
@@ -222,6 +265,61 @@ namespace SocialMediaSystem
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!DataManager.Entities.Any())
+                {
+                    return;
+                }
+
+                postsListView.Items.Clear();
+
+                IEnumerable<IEntity> foundEntities = new List<IEntity>();
+
+                if (string.IsNullOrEmpty(PostSearch.Text))
+                {
+                    foundEntities = DataManager.Entities;
+                }
+                else
+                {
+                    foundEntities = DataManager.Search(PostSearch.Text);
+                }
+
+                foreach (IEntity entity in foundEntities)
+                {
+                    var postEntity = entity as Post;
+
+                    if (postEntity != null)
+                    {
+                        var item = new ListViewItem((postsListView.Items.Count + 1).ToString());
+                        item.SubItems.Add(postEntity.Author?.Username ?? "Unknown");
+                        item.SubItems.Add(postEntity.Description);
+                        item.SubItems.Add(postEntity.PublishedDate?.ToString("dd/MM/yyyy HH:mm") ?? string.Empty);
+                        item.SubItems.Add(postEntity.Likes?.Count.ToString() ?? "0");
+                        item.SubItems.Add(postEntity.Views?.Count.ToString() ?? "0");
+
+                        postsListView.Items.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

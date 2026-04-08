@@ -12,14 +12,14 @@ namespace SocialMediaSystem
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
 
-            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
 
             materialSkinManager.ColorScheme = new ColorScheme(
-                Primary.Blue600,
-                Primary.Blue700,
-                Primary.Blue200,
-                Accent.LightBlue200,
-                TextShade.WHITE);
+                Primary.Orange600,
+                Primary.Orange600,
+                Primary.Orange700,
+                Accent.Orange700,
+                TextShade.BLACK);
         }
         private ListView postsListView;
         private ColumnHeader Author;
@@ -38,5 +38,7 @@ namespace SocialMediaSystem
         private Label label1;
         private Label label2;
         private Label label3;
+        private TextBox PostSearch;
+        private Button SearchButton;
     }
 }
