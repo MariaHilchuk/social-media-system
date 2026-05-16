@@ -65,7 +65,7 @@ namespace SocialMediaSystem
         public override string Format()
         {
             return $"[{id}][{Username}][{Email}]";
-        }        
+        }
         public bool Search(string searchString)
         {
             return (Username?.Contains(searchString, StringComparison.OrdinalIgnoreCase) ?? false) ||
@@ -120,7 +120,7 @@ namespace SocialMediaSystem
         }
 
 
-        public new bool IsValid()
+        public override bool IsValid()
         {
             if (!base.IsValid()) return false;
 
@@ -162,10 +162,26 @@ namespace SocialMediaSystem
             return base.Format() + $"[{Brand}]";
         }
     }
-
+    public interface IEntity
+    {
+        public bool Search(string searchString);
+    }
     public class Post : Entity, IEntity
     {
         public override string FileName => "Posts.txt";
+        public string? this[string field, bool getValue]
+        {
+            get
+            {
+                return field.ToLower() switch
+                {
+                    "author" => Author?.Username,
+                    "description" => Description,
+                    "date" => PublishedDate?.ToString(),
+                    _ => null
+                };
+            }
+        }
 
         public User? Author { get; set; }
         public string? Description { get; set; }
@@ -216,7 +232,7 @@ namespace SocialMediaSystem
         }
     }
 
-public static class DataManager
+    public static class DataManager
     {
         public static IEnumerable<IEntity> Entities { get; private set; } = new List<IEntity>();
 
@@ -224,6 +240,7 @@ public static class DataManager
         {
             Entities = Entities.Append(entity);
         }
+
 
         public static IEnumerable<IEntity> Search2(string searchString)
         {
@@ -248,7 +265,14 @@ public static class DataManager
                     yield return entity;
                 }
             }
+        }
 
+        public static IEnumerable<IEntity> Filter(FilterDelegate filter) {
+            foreach (var Entity in Entities) {
+                if (filter.Invoke(Entity)) {
+                    yield return Entity;
+                }
+            }
         }
     }
     public static class FileManager
@@ -263,7 +287,7 @@ public static class DataManager
 
             string record = entity.Format();
 
-            using (StreamWriter writer = new StreamWriter(entity.FileName, true))
+            using (StreamWriter writer = new StreamWriter(entity.FileName, false))
             {
                 writer.WriteLine(record);
             }

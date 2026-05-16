@@ -15,18 +15,13 @@ namespace SocialMediaSystem
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
 
             materialSkinManager.ColorScheme = new ColorScheme(
-                Primary.Orange600,
-                Primary.Orange600,
-                Primary.Orange700,
-                Accent.Orange700,
+                Primary.Green300,
+                Primary.Grey900,
+                Primary.Green600,
+                Accent.Green700,
                 TextShade.BLACK);
         }
         private ListView postsListView;
-        private ColumnHeader Author;
-        private ColumnHeader Likes;
-        private ColumnHeader Description;
-        private ColumnHeader Views;
-        private ColumnHeader PublishedDate;
         private DateTimePicker dateTimePicker1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private TextBox DescriptionTextBox;
@@ -40,5 +35,20 @@ namespace SocialMediaSystem
         private Label label3;
         private TextBox PostSearch;
         private Button SearchButton;
+        private MaskedTextBox FromTextBox;
+        private MaskedTextBox ToTextBox;
+        private Button FilterButton;
+        private Label label4;
+        private TextBox ViewsTextBox;
+        private Label label5;
+        private ListView listView1;
+        private ColumnHeader id;
+        private ColumnHeader Author;
+        private ColumnHeader Views;
+        private ColumnHeader Description;
+        private ColumnHeader Likes;
+        private ColumnHeader PublishedDate;
+        private Label label6;
+        private Label label7;
     }
 }
